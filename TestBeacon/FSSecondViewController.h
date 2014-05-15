@@ -10,4 +10,6 @@
 
 @interface FSSecondViewController : UIViewController
 
+@property (nonatomic,strong) IBOutlet UILabel *tipLabel;
+
 @end

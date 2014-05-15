@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5125EC508D844DCBB2D1C355 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E3D73ABA12044318973C1C9C /* libPods.a */; };
 		5F9ACCB119235B9B00B13FB5 /* sim_libBeacon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9ACCB019235B9B00B13FB5 /* sim_libBeacon.a */; };
+		5F9ACCB21924926400B13FB5 /* libBeacon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FB4BBB1191CC66B00C75048 /* libBeacon.a */; };
 		5FB4BB77191CC5E500C75048 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FB4BB76191CC5E500C75048 /* Foundation.framework */; };
 		5FB4BB79191CC5E500C75048 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FB4BB78191CC5E500C75048 /* CoreGraphics.framework */; };
 		5FB4BB7B191CC5E500C75048 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FB4BB7A191CC5E500C75048 /* UIKit.framework */; };
@@ -70,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F9ACCB21924926400B13FB5 /* libBeacon.a in Frameworks */,
 				5F9ACCB119235B9B00B13FB5 /* sim_libBeacon.a in Frameworks */,
 				5FB4BB79191CC5E500C75048 /* CoreGraphics.framework in Frameworks */,
 				5FB4BB7B191CC5E500C75048 /* UIKit.framework in Frameworks */,

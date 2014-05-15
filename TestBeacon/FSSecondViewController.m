@@ -10,7 +10,7 @@
 #import "Beacon.h"
 #import <AFNetworking/AFNetworking.h>
 
-const NSString* kRequestActivity = @"http://www.reque.st/api/activity";
+static const NSString* kRequestActivity = @"http://www.reque.st/api/activity";
 
 
 @interface FSSecondViewController ()<BeaconNotificationDelegate>{
@@ -47,34 +47,34 @@ const NSString* kRequestActivity = @"http://www.reque.st/api/activity";
     // Post always has the issue  unacceptable content-type: text/html",
     
     //AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager alloc] ;
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
-    
-    AFJSONRequestSerializer *requestSerializer = [AFJSONRequestSerializer serializer];
-
-    [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    
-    manager.requestSerializer = requestSerializer;
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    
-    NSDictionary *parameters = @{@"beaconId": @"112233"};
-//    [manager POST:@"http://www.reque.st/api/activity" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//    
+//    
+//    AFJSONRequestSerializer *requestSerializer = [AFJSONRequestSerializer serializer];
+//
+//    [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+//    [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+//    
+//    manager.requestSerializer = requestSerializer;
+//    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+//
+//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+//    
+//    NSDictionary *parameters = @{@"beaconId": @"112233"};
+////    [manager POST:@"http://www.reque.st/api/activity" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+////        //
+////    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+////        
+////        NSLog(@"Error: %@", error);
+////    }];
+//    
+//    [manager POST:kRequestActivity parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
 //        //
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"%@",responseObject);
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
 //        
 //        NSLog(@"Error: %@", error);
 //    }];
-    
-    [manager POST:kRequestActivity parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-        //
-        NSLog(@"%@",responseObject);
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
-        NSLog(@"Error: %@", error);
-    }];
     
     
     // Get can work fine
@@ -112,18 +112,21 @@ const NSString* kRequestActivity = @"http://www.reque.st/api/activity";
 }
 
 - (void)NotifyWhenEntry{
-    [self sendLocalNotificationWithMessage:@"Weclome !"];
     
-    self.view.backgroundColor = [UIColor redColor];
+    NSString *tip = @"Welcome to Garage Society !";
     
+    [self sendLocalNotificationWithMessage:tip];
+    
+    [self.tipLabel setText:tip];
 
     
 }
 - (void)NotifyWhenExit{
-    [self sendLocalNotificationWithMessage:@"Goodbye"];
+    NSString *tip = @"Goodbye, See you next time!";
     
+    [self sendLocalNotificationWithMessage:tip];
     
-    self.view.backgroundColor = [UIColor blueColor];
+    [self.tipLabel setText:tip];
 }
 
 
