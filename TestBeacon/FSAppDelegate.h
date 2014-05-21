@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "../../Beacon/Beacon/Beacon.h"
 
-@interface FSAppDelegate : UIResponder <UIApplicationDelegate>
+@interface FSAppDelegate : UIResponder <UIApplicationDelegate,BeaconNotificationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) Beacon *beacon;
 
 @end

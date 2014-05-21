@@ -7,15 +7,13 @@
 //
 
 #import "FSSecondViewController.h"
-#import "Beacon.h"
 #import <AFNetworking/AFNetworking.h>
 
 static const NSString* kRequestActivity = @"http://www.reque.st/api/activity";
 
 
-@interface FSSecondViewController ()<BeaconNotificationDelegate>{
+@interface FSSecondViewController (){
 
-    Beacon *b;
 }
 
 
@@ -28,12 +26,16 @@ static const NSString* kRequestActivity = @"http://www.reque.st/api/activity";
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    if (!b) {
-        b = [Beacon new];
-        b.delegate = self;
-        
-    }
-    [b startMonitorBeacon];
+    
+    //[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyBeacon:)
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"Entry" object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        [self NotifyWhenEntry];
+    }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"Exit" object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        [self NotifyWhenExit];
+    }];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -115,7 +117,7 @@ static const NSString* kRequestActivity = @"http://www.reque.st/api/activity";
     
     NSString *tip = @"Welcome to Garage Society !";
     
-    [self sendLocalNotificationWithMessage:tip];
+//    [self sendLocalNotificationWithMessage:tip];
     
     [self.tipLabel setText:tip];
 
@@ -124,7 +126,7 @@ static const NSString* kRequestActivity = @"http://www.reque.st/api/activity";
 - (void)NotifyWhenExit{
     NSString *tip = @"Goodbye, See you next time!";
     
-    [self sendLocalNotificationWithMessage:tip];
+//    [self sendLocalNotificationWithMessage:tip];
     
     [self.tipLabel setText:tip];
 }

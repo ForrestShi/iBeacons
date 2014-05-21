@@ -8,11 +8,19 @@
 
 #import "FSAppDelegate.h"
 
+
+
 @implementation FSAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    
+    self.beacon = [Beacon new];
+    self.beacon.delegate = self;
+    [self.beacon startMonitorBeacon:kUUID_Estimote major:1000 minor:2000];
+
     return YES;
 }
 							
@@ -42,5 +50,64 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+- (void)NotifyWhenEntryBeacon:(CLBeaconRegion *)beaconRegion{
+    
+    
+    NSString *tip = @"Welcome to Garage Society !";
+
+    if ([beaconRegion.minor integerValue] == 2000) {
+        
+        tip = @"Today's Event : BaseCamp Workshop ";
+    }else if ([beaconRegion.minor integerValue] == 2001) {
+        
+        tip = @"Happy Hour Today ";
+    }
+
+    
+    [self sendLocalNotificationWithMessage:tip];
+    
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Entry" object:nil];
+    
+    NSLog(@"detect beacon %@", beaconRegion);
+    
+}
+- (void)NotifyWhenExitBeacon:(CLBeaconRegion *)beaconRegion{
+    NSString *tip = @"Goodbye, See you next time!";
+    
+    if ([beaconRegion.minor integerValue] == 2000) {
+        
+        tip = @"Today's Event : BaseCamp Workshop ";
+    }else if ([beaconRegion.minor integerValue] == 2001) {
+        
+        tip = @"Don't Forget Happy Hour Today :) ";
+    }
+
+
+    [self sendLocalNotificationWithMessage:tip];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Exit" object:nil];
+    
+        NSLog(@"detect beacon %@", beaconRegion);
+}
+
+
+#pragma mark - Local notifications
+- (void)sendLocalNotificationWithMessage:(NSString*)message
+{
+    UILocalNotification *notification = [UILocalNotification new];
+    
+    // Notification details
+    notification.alertBody = message;
+    // notification.alertBody = [NSString stringWithFormat:@"Entered beacon region for UUID: %@",
+    //                         region.proximityUUID.UUIDString];   // Major and minor are not available at the monitoring stage
+    notification.alertAction = NSLocalizedString(@"View Details", nil);
+    notification.soundName = UILocalNotificationDefaultSoundName;
+    
+    [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+}
+
+
 
 @end

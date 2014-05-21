@@ -7,7 +7,6 @@
 //
 
 #import "FSFirstViewController.h"
-#import "Beacon.h"
 
 @interface FSFirstViewController ()<UIWebViewDelegate>
 
